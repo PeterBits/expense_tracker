@@ -57,3 +57,8 @@ def update_expense(id, description, amount, category):
     write_json(expenses)
     print(f"Gasto actualizado: {description} - Monto: {amount}" + (f" - Categoría: {category}" if category else ""))
     
+def delete_expense(expense_id):
+    expenses = get_expense_list()
+    expenses_updated = list(filter( lambda x : x["id"] != expense_id, expenses ))
+    write_json(expenses_updated)
+    print(f"Gasto {expense_id} eliminado")
