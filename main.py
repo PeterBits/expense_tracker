@@ -2,7 +2,8 @@ import argparse
 from methods import (
     add_new_expense,
     update_expense,
-    delete_expense
+    delete_expense,
+    show_expense_list
     )
 
 # Configurar argparse
@@ -24,9 +25,11 @@ update_parser.add_argument("--description", type=str, required=True, help="Descr
 update_parser.add_argument("--amount", type=float, required=True, help="Monto del gasto")
 update_parser.add_argument("--category", type=str, required=False, help="Categoría del gasto")
 
-
+# delete expense
 delete_parser = subparsers.add_parser("delete", help="Eliminar un gasto")
 delete_parser.add_argument("--id", type=int, required=True, help="ID del gasto a eliminar")
+
+show_expenses = subparsers.add_parser("list", help="Mostrar todos los gastos")
 
 
 # Parsear los argumentos
@@ -40,6 +43,8 @@ elif args.command == "update":
     update_expense(args.id, args.description, args.amount, args.category)
 elif args.command == "delete":
     delete_expense(args.id)
+elif args.command == "list":
+    show_expense_list()
 else:
     parser.print_help()
 

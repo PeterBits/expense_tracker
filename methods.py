@@ -10,6 +10,8 @@ def create_json_file():
     with open(JSON_FILE, "w") as file:
         json.dump([], file)
 
+def print_json(data):
+    print(json.dumps(data, indent=4, ensure_ascii=False))
 
 def get_expense_list():
     try:
@@ -62,3 +64,7 @@ def delete_expense(expense_id):
     expenses_updated = list(filter( lambda x : x["id"] != expense_id, expenses ))
     write_json(expenses_updated)
     print(f"Gasto {expense_id} eliminado")
+    
+def show_expense_list():
+    expenses = get_expense_list()
+    print_json(expenses)
