@@ -68,3 +68,8 @@ def delete_expense(expense_id):
 def show_expense_list():
     expenses = get_expense_list()
     print_json(expenses)
+    
+def show_summary():
+    expenses = get_expense_list()
+    total = sum(expense["amount"] for expense in expenses)
+    print(f"Total gastado: {total}")
