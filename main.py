@@ -7,7 +7,6 @@ from methods import (
     show_summary
     )
 
-# Configurar argparse
 parser = argparse.ArgumentParser(description="Expense Tracker - Añade y gestiona tus gastos.")
 subparsers = parser.add_subparsers(dest="command", help="Comandos disponibles")
 
@@ -16,8 +15,6 @@ add_parser = subparsers.add_parser("add", help="Añadir un nuevo gasto")
 add_parser.add_argument("--description", type=str, required=True, help="Descripción del gasto")
 add_parser.add_argument("--amount", type=float, required=True, help="Monto del gasto")
 add_parser.add_argument("--category", type=str, required=False, help="Categoría del gasto")
-    
-    
     
 # update command
 update_parser = subparsers.add_parser("update", help="Actualizar un gasto")
@@ -36,13 +33,11 @@ show_expenses_parser = subparsers.add_parser("list", help="Mostrar todos los gas
 # show summary expenses
 show_summary_parser = subparsers.add_parser("summary", help="Mostrar resumen de gastos")
 
-
-# Parsear los argumentos
 args = parser.parse_args()
 
-
-# Ejecutar la acción correspondiente
-if args.command == "add":
+if args.command is "help":
+    parser.print_help()
+elif args.command == "add":
     add_new_expense(args.description, args.amount, args.category)
 elif args.command == "update":
     update_expense(args.id, args.description, args.amount, args.category)
