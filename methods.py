@@ -10,7 +10,8 @@ def create_json_file():
     with open(JSON_FILE, "w") as file:
         json.dump([], file)
 
-def read_json():
+
+def get_expense_list():
     try:
         list_dir = os.listdir('.')
         list_dir = [file for file in list_dir if file.endswith('.json')]
@@ -34,12 +35,25 @@ def write_json(data):
         print(f"Error writing to '{JSON_FILE}': {e}")
 
 def add_new_expense(description, amount, category):
-    print(f"Añadiendo gasto: {description} - Monto: {amount}" + (f" - Categoría: {category}" if category else ""))
+    expenses = get_expense_list()
     expense_data = {
         "description": description,
         "amount": amount,
-        "category": category
+        "category": category,
+        "id": len(expenses) + 1
     }
-    expenses = read_json()
     expenses.append(expense_data)
     write_json(expenses)
+    print(f"Gasto añadido: {description} - Monto: {amount}" + (f" - Categoría: {category}" if category else ""))
+
+def update_expense(id, description, amount, category):
+    expenses = get_expense_list()
+    for expense in expenses:
+        if expense["id"] == id:
+            expense["description"] = description
+            expense["amount"] = amount
+            expense["category"] = category
+            break
+    write_json(expenses)
+    print(f"Gasto actualizado: {description} - Monto: {amount}" + (f" - Categoría: {category}" if category else ""))
+    
